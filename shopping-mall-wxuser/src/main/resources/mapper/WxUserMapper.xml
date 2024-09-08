@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingmall.wxuser.mapper.WxUserMapper">
+
+    <resultMap id="BaseResultMap" type="com.shoppingmall.wxuser.domain.po.WxUser">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="openId" column="open_id" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="SMALLINT"/>
+            <result property="birthday" column="birthday" jdbcType="DATE"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+            <result property="lastLogin" column="last_login" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,open_id,name,
+        phone,sex,birthday,
+        avatar,last_login
+    </sql>
+</mapper>

@@ -1,0 +1,71 @@
+server:
+  port: 8080 # 端口
+spring:
+  application:
+    name: shopping-mall-gateway
+  profiles:
+    active: dev # 使用的配置文件
+  # MySQL配置
+  datasource:
+    url: jdbc:mysql://${sm.db.host}:3306/sm-wxuser?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ${sm.db.pw}
+  # Redis配置
+  redis:
+    host: ${sm.rd.host}
+    port: ${sm.rd.port}
+    password: ${sm.rd.pw}
+    lettuce:
+      pool:
+        max-active: ${sm.rd.lettuce.pool.max-active} # 最大连接
+        max-idle: ${sm.rd.lettuce.pool.max-idle}   # 最大空闲连接
+        min-idle: ${sm.rd.lettuce.pool.min-idle}   # 最小空闲连接
+        max-wait: ${sm.rd.lettuce.pool.max-wait}   # 等待连接时间
+  cloud:
+    nacos:
+      server-addr: ${sm.cloud.nacos.discovery.server-addr} # nacos地址
+    gateway:
+      routes:
+          # 商品类型
+        - id: type # 路由规则id，自定义 唯一
+          uri: lb://shopping-mall-type # 路由的目标服务，lb代表负载均衡，会从注册中心拉取服务列表
+          predicates: # 路由断言，判断当前请求是否符合当前规则，符合则路由到目标服务
+            - Path=/type/** # 以请求路径作为判断规则
+          # 商品
+        - id: commodity
+          uri: lb://shopping-mall-commodity
+          predicates:
+            - Path=/commodity/**,/comment/**
+          # 微信用户
+        - id: user
+          uri: lb://shopping-mall-wxuser
+          predicates:
+            - Path=/wxuser/**
+          # 交易
+        - id: trade
+          uri: lb://shopping-mall-trade
+          predicates:
+            - Path=/orders/**
+          # 秒杀
+        - id: trade
+          uri: lb://shopping-mall-seckill
+          predicates:
+            - Path=/voucher/**
+
+# satoken配置
+sa-token:
+  # token 名称（同时也是 cookie 名称）
+  token-name: satoken
+  # token 有效期（单位：秒） 默认30天，-1 代表永久有效
+  timeout: 2592000
+  # token 最低活跃频率（单位：秒），如果 token 超过此时间没有访问系统就会被冻结，默认-1 代表不限制，永不冻结
+  active-timeout: -1
+  # 是否允许同一账号多地同时登录 （为 true 时允许一起登录, 为 false 时新登录挤掉旧登录）
+  is-concurrent: false
+  # 在多人登录同一账号时，是否共用一个 token （为 true 时所有登录共用一个 token, 为 false 时每次登录新建一个 token）
+  is-share: true
+  # token 风格（默认可取值：uuid、simple-uuid、random-32、random-64、random-128、tik）
+  token-style: uuid
+  # 是否输出操作日志
+  is-log: true

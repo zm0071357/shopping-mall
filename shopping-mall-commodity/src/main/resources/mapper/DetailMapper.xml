@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingmall.commodity.mapper.DetailMapper">
+
+    <resultMap id="BaseResultMap" type="com.shoppingmall.commodity.domain.po.Detail">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="goodId" column="good_id" jdbcType="INTEGER"/>
+            <result property="desPic" column="des_pic" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,good_id,des_pic
+    </sql>
+</mapper>

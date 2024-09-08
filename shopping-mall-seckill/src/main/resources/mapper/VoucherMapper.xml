@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingmall.seckill.mapper.VoucherMapper">
+
+    <resultMap id="BaseResultMap" type="com.shoppingmall.seckill.domain.po.Voucher">
+            <result property="id" column="id" jdbcType="INTEGER"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="subTitle" column="sub_title" jdbcType="VARCHAR"/>
+            <result property="rules" column="rules" jdbcType="VARCHAR"/>
+            <result property="payValue" column="pay_value" jdbcType="FLOAT"/>
+            <result property="actualValue" column="actual_value" jdbcType="FLOAT"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,sub_title,
+        rules,pay_value,actual_value,
+        type,status,create_time,
+        update_time
+    </sql>
+</mapper>

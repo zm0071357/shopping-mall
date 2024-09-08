@@ -1,0 +1,67 @@
+server:
+  port: 8082  # 端口
+spring:
+  application:
+    name: shopping-mall-type # 服务名
+  profiles:
+    active: dev # 使用的配置文件
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${sm.cloud.nacos.discovery.server-addr} # nacos地址
+  # MySQL配置
+  datasource:
+    url: jdbc:mysql://${sm.db.host}:3306/sm-type?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ${sm.db.pw}
+  # Redis配置
+  data:
+    redis:
+      host: ${sm.rd.host}
+      port: ${sm.rd.port}
+      password: ${sm.rd.pw}
+      lettuce:
+        pool:
+          max-active: ${sm.rd.lettuce.pool.max-active} # 最大连接
+          max-idle: ${sm.rd.lettuce.pool.max-idle}   # 最大空闲连接
+          min-idle: ${sm.rd.lettuce.pool.min-idle}   # 最小空闲连接
+          max-wait: ${sm.rd.lettuce.pool.max-wait}   # 等待连接时间
+
+# MybatisPlus配置
+mybatis-plus:
+  configuration:
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+    map-underscore-to-camel-case: true  # 驼峰映射
+    auto-mapping-behavior: full # 完全映射
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启SQL日志
+  global-config:
+    db-config:
+      update-strategy: not_null
+      id-type: auto
+
+# 日志配置
+logging:
+  level:
+    com.shoppingmall.commodity: debug
+  pattern:
+    dateformat: HH:mm:ss:SSS
+  file:
+    path: "logs/${spring.application.name}"
+
+# knife4j配置
+knife4j:
+  enable: true
+  openapi:
+    title: 商品分类服务接口文档
+    description: "信息"
+    email: 834302225@qq.com
+    concat: LZM
+    version: v1.0.0
+    group:
+      default:
+        group-name: default
+        api-rule: package
+        api-rule-resources:
+          - com.shoppingmall.type.controller
+

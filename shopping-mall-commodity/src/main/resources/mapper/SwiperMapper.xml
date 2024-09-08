@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingmall.commodity.mapper.SwiperMapper">
+
+    <resultMap id="BaseResultMap" type="com.shoppingmall.commodity.domain.po.Swiper">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="commodityId" column="commodity_id" jdbcType="INTEGER"/>
+            <result property="swiperPic" column="swiper_pic" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,commodity_id,swiper_pic
+    </sql>
+</mapper>
